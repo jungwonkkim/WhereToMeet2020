@@ -10,12 +10,13 @@ def index(request):
     else:
         return render(request, 'locations/index.html')
 
-def result(request):
-    rest_api_key = '70b3da71d4666c940fd8657467651b15'
-    pass
+
 
 def search(request,people):
     context={
         'people': people
     }
     return render(request, 'locations/search.html', context)
+
+def result(request):
+    return render(request, 'locations/result.html')

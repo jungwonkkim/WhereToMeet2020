@@ -6,7 +6,7 @@
 {% for i in "x"|rjust:people %}
 
   <p class="ml-3">{{ forloop.counter }}번째 출발지</p>
-  <form class="form-group" action='' method="POST">
+  <form class="form-group" action='' method="GET">
     {% csrf_token %}
     <div class="col-auto mb-3">
     <input class="form-control" type="search" id="address_keyword" aria-label="search">
