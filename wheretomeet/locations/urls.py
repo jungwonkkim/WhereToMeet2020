@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('result/', views.result, name='result'),
     path('<int:people>/', views.search, name='search'),
+    path('addressresult/', views.addressresult, name='addressresult')
 ]
