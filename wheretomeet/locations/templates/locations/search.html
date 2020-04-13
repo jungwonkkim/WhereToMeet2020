@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}search{% endblock %}
+
+{% block content %}
+{% for i in "x"|rjust:people %}
+
+  <p class="ml-3">{{ forloop.counter }}번째 출발지</p>
+  <form class="form-group" action='' method="POST">
+    {% csrf_token %}
+    <div class="col-auto mb-3">
+    <input class="form-control" type="search" id="address_keyword" aria-label="search">
+    </div>
+    <div class='col-auto'>
+    <button class="btn btn-dark">출발지 검색하기</button>
+    </div>
+  </form>
+
+{% endfor %}
+
+{% endblock %}
