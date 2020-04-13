@@ -16,6 +16,10 @@
 
 ## Tech/Framework Used
 
+- Django 2.1.15
+- Bootstrap 4
+- Python 3.7.3
+
 
 
 ## Features
