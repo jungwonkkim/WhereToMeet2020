@@ -4,7 +4,22 @@
 
 {% block content %}
 <div class='row justify-content-center'>
+  <h4>wheretomeet의 추천 만남 장소는!</h4>
+  <h4>{{spot.place_name}}입니다!</h4>
+</div>
+<div class='row justify-content-center'>
 <div id="map" class="col-auto" style="width:400px;height:350px;"></div>
+</div>
+<div class='row justify-content-center'>
+  <small>목적지까지 자세한 길안내를 위해선 '길찾기'버튼을 클릭해주세요!</small>
+</div>
+{% for location in locations %}
+<p>{{ location.place_name }}로부터 소요시간 {{ location.time}}</p>
+{% endfor %}
+<p>으로 가장 모두가 만족할만한 약속장소 입니다.</p>
+<div class='row justify-content-end'>
+  <p class='col-auto'>{{ spot.place_name }}의 맛집 정보는?</p>
+  <button class='col-auto btn d-inline btn-dark btn-sm'>여기!</button>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c50dd63688ca3402b33efd4335d9dc92"></script>
 <script>

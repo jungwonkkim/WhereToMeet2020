@@ -19,4 +19,10 @@ def search(request,people):
     return render(request, 'locations/search.html', context)
 
 def result(request):
-    return render(request, 'locations/result.html')
+    spot = ''
+    locations = {}
+    context = {
+        'locations': locations
+        'spot': spot
+    }
+    return render(request, 'locations/result.html', context)
