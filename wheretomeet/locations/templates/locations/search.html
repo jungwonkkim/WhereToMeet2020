@@ -169,15 +169,14 @@ function displayPlaces(places) {
             itemEl.onmouseover =  function () {
                 displayInfowindow(marker, title);
             };
-            itemEl.onclick = function(){
+            kakao.maps.event.addListener(marker, 'click', function() {
               var find ='textinput_'+ String(count);
-              alert('출발지가 으로 설정되었습니다.');
-              
-              document.getElementById(find).value = '3';
+              alert('출발지가 설정되었습니다.');
+              add = marker.getPosition()
+              document.getElementById(find).value = add;
               document.getElementById("addresssearch").setAttribute("aria-hidden", "true");
 
-            }
-            
+            });            
             itemEl.onmouseout =  function () {
                 infowindow.close();
             };
@@ -294,11 +293,6 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
-
-kakao.maps.event.addListener(marker, 'click', function() {
-      // 마커 위에 인포윈도우를 표시합니다
-      infowindow.open(map, marker);  
-});
 
 
 </script>

@@ -16,6 +16,7 @@ def index(request):
 def search(request,people):
     #search 부분 어떻게 받을건지에 따라서 프론트도 백도 많이 달라질 것 같아서 여기서 한번 멈추겠습니다. 
     if request.method =="POST":
+        text = request.POST.get()
         pass
     else:
         #일단 인원수 만큼 form 뽑아뒀는데 id가 다 같아서 그부분은 좀 고민을 해봐야할 것 같고 백엔드쪽이 편한 대로 바꿀 수 있으니까 
