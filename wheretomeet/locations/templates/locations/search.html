@@ -11,10 +11,12 @@
     {% csrf_token %}
     {% for i in "x"|rjust:people %}
     <label>{{ forloop.counter }}번째 출발지</label>
-    <input type='text' class="textinput {{forloop.counter}} form-control" disabled> 
+    <input type='text' value = '주소 검색을 통해 자동으로 입력됩니다.' id = "textinput_{{forloop.counter}}"class="form-control" disabled> 
     <br>
     {% endfor %}
-    <button type="submit" class="btn btn-dark">장소 추천 시작</button>
+    <div class='row justify-content-center'>
+    <button type="submit" class="btn btn-dark col-4">장소 추천 시작</button>
+    </div>
   </form>
   
 {% endblock %}
@@ -42,7 +44,7 @@
                   </div>
               </div>
               <hr>
-              <ul id="placesList" onclick = ></ul>
+              <ul id="placesList"></ul>
               <div id="pagination"></div>
           </div>
       </div>
@@ -57,8 +59,17 @@
 
 {% block script %}
 <script>
+var people ={{ people }};
+var button = document.getElementById("searchbutton"),
+  count = 0;
+  button.onclick = function() {
+  count += 1;
+  if(count > people){
+    button.disabled = true;
+    alert('주소를 더 이상 추가할 수 없습니다.');
+  }
+};
 var markers = [];
-
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
@@ -117,6 +128,7 @@ function placesSearchCB(data, status, pagination) {
 
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
+    var locations = []
 
     var listEl = document.getElementById('placesList'), 
     menuEl = document.getElementById('menu_wrap'),
@@ -136,6 +148,7 @@ function displayPlaces(places) {
         var placePosition = new daum.maps.LatLng(places[i].y, places[i].x),
             marker = addMarker(placePosition, i), 
             itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+            
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
@@ -146,26 +159,29 @@ function displayPlaces(places) {
         // mouseout 했을 때는 인포윈도우를 닫습니다
 
         (function(marker, title) {
-            daum.maps.event.addListener(marker, 'mouseover', function() {
+            kakao.maps.event.addListener(marker, 'mouseover', function() {
                 displayInfowindow(marker, title);
             });
 
-            daum.maps.event.addListener(marker, 'mouseout', function() {
+            kakao.maps.event.addListener(marker, 'mouseout', function() {
                 infowindow.close();
             });
-
             itemEl.onmouseover =  function () {
                 displayInfowindow(marker, title);
             };
+            itemEl.onclick = function(){
+              var find ='textinput_'+ String(count);
+              alert('출발지가 으로 설정되었습니다.');
+              
+              document.getElementById(find).value = '3';
+              document.getElementById("addresssearch").setAttribute("aria-hidden", "true");
 
+            }
+            
             itemEl.onmouseout =  function () {
                 infowindow.close();
             };
-            
-            daum.maps.event.addListener(marker, 'click', function() {
-            	marker.setImage(clickImage);
-            });
-        })(marker, places[i].place_name +'(으)로 경로설정 ');
+        })(marker, places[i].place_name +'(으)로 출발지설정 ');
 
 
         fragment.appendChild(itemEl);
@@ -284,31 +300,6 @@ kakao.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map, marker);  
 });
 
-var people ={{people}};
-var button = document.getElementById("searchbutton"),
-  count = 0;
-  button.onclick = function() {
-  count += 1;
-  if(count > people){
-    button.disabled = true;
-    alert('주소를 더 이상 추가할 수 없습니다.')
-  }
-};
-
-$(document).ready(function() {
-      $("#modal_show").click(function() {
-          $("#addresssearch").modal("show");
-      });
-
-      $("#close_modal").click(function() {
-          $("#addresssearch").modal("hide");
-      });
-  });
-
-
-  $("marker").click(function(){
-  $("input:text").val("Glenn Quagmire");
-});
 
 </script>
 {% endblock %}
