@@ -2,7 +2,7 @@ import requests
 import json
 
 
-kakao_key = '발급받은 키'
+kakao_key = '발급받은 카카오 REST API KEY'
 kakao_url = '/v2/local/search/address.json'
 kakao_host = 'https://dapi.kakao.com'
 kakao_headers = {'Authorization': f'KakaoAK {kakao_key}'}
@@ -45,7 +45,7 @@ def time(array):
     '역삼역': (127.03646946847, 37.5006744185994),
     }
 
-    OD_key = '발급받은 key'
+    OD_key = '발급받은 OD Key'
     my_time_min = 1000000
     my_stn = ""
     for stn in spots.keys():

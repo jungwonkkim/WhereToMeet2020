@@ -51,7 +51,7 @@
       </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary mb-5" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -59,6 +59,7 @@
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 api키&libraries=services"></script>
 <script>
 let inputs = document.querySelectorAll('.my_input')
 
