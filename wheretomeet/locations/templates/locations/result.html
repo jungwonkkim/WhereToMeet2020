@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}result{% endblock %}
+{% block title %}장소 추천 결과{% endblock %}
 {% block style %}
 {% endblock %}
 {% block content %}
@@ -18,8 +18,8 @@
 </div>
 
 <div class='row justify-content-end'>
-  <p class='col-auto'>{{ place }}의 맛집 정보는?</p>
-  <a href ='https://www.mangoplate.com/search/{{place}}'class='col-auto btn d-inline btn-dark btn-sm'>여기!</a>
+  <p class='col-auto mr-2'>{{ place }}의 맛집 정보는?</p>
+  <a href ='https://www.mangoplate.com/search/{{place}}'class='col-auto btn btn-dark btn-sm'>여기!</a>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 js 키"></script>
 <script>

@@ -7,12 +7,14 @@ kakao_url = '/v2/local/search/address.json'
 kakao_host = 'https://dapi.kakao.com'
 kakao_headers = {'Authorization': f'KakaoAK {kakao_key}'}
 
+#주소의 x좌표를 출력하는 함수
 def searchx(location):
     myurl = kakao_host + kakao_url + f'?query={location}'
     response = requests.get(myurl, headers=kakao_headers).text
     response = json.loads(response)
     return float(response['documents'][0]['address']['x'])
 
+#주소의 y좌표를 출력하는 함수
 def searchy(location):
     myurl = kakao_host + kakao_url + f'?query={location}'
     response = requests.get(myurl, headers=kakao_headers).text
@@ -20,6 +22,7 @@ def searchy(location):
     return float(response['documents'][0]['address']['y'])
 
 kakao_url_key = '/v2/local/search/keyword.json'
+#주소의 키워드를(존재한다면 출력하는 함수)
 def keyword(location):
     myurl = kakao_host + kakao_url_key + f'?query={location}'
     response = requests.get(myurl, headers=kakao_headers).text
@@ -28,6 +31,7 @@ def keyword(location):
 
 
 
+#최단거리 spot을 구하는 함수 
 def time(array):
     spots = {
     '강남역': (127.028000275071, 37.4980854357918),

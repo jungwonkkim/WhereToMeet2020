@@ -15,7 +15,7 @@ def index(request):
 
 
 def search(request,people):
-    #search 부분 어떻게 받을건지에 따라서 프론트도 백도 많이 달라질 것 같아서 여기서 한번 멈추겠습니다. 
+    #검색버튼 submit 후 mypath 모듈 이용해 해당 스팟 찾아내고 result 페이지로 넘겨주기
     if request.method == 'POST':
         adlist = []
         placename_list = []        
@@ -32,7 +32,7 @@ def search(request,people):
             'placename_list': placename_list,
         }
         return render(request, 'locations/result.html', context)           
-    
+    #인원별 주소지 검색 
     else:
         context={
         'people': people

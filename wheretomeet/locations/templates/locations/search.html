@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}search{% endblock %}
+{% block title %}주소 입력{% endblock %}
 {% block content %}
 
 <div class='row justify-content-center'>
@@ -181,6 +181,7 @@ function displayPlaces(places) {
             itemEl.onmouseover =  function () {
                 displayInfowindow(marker, title);
             };
+            //wheretomeet 삽입 부분( 주소 입력 )
             kakao.maps.event.addListener(marker, 'click', function() {
               var find ='textinput_'+ String(count);
               alert('출발지가 설정되었습니다.');
