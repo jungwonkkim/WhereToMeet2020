@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-
+from .mypath import searchx, searchy, time
+import json
 # Create your views here.
 
 #인원수 뽑아내는 곳
@@ -15,12 +16,25 @@ def index(request):
 
 def search(request,people):
     #search 부분 어떻게 받을건지에 따라서 프론트도 백도 많이 달라질 것 같아서 여기서 한번 멈추겠습니다. 
-    if request.method =="POST":
-        text = request.POST.get()
-        pass
+    if request.method == 'POST':
+        text = request.POST.get('textinput_1')
+        print(text)
+        adlist = []        
+        for i in range(1, people+1):
+            print(request.POST.get(f'textinput_{i}'))
+            adlist.append((searchx(request.POST.get(f'textinput_{i}')), searchy(request.POST.get(f'textinput_{i}'))))
+        result, position = time(adlist)
+        print(position)
+        place = json.dumps(position)
+        print(place)
+        context = {
+            'result': result,
+            'place' : place,
+            'place_name' : adlist,
+        }
+        return render(request, 'pages/result.html', context)           
+    
     else:
-        #일단 인원수 만큼 form 뽑아뒀는데 id가 다 같아서 그부분은 좀 고민을 해봐야할 것 같고 백엔드쪽이 편한 대로 바꿀 수 있으니까 
-        #해보고 알려주세요
         context={
         'people': people
         }
@@ -36,6 +50,3 @@ def result(request):
     }
     return render(request, 'locations/result.html', context)
 
-
-def addressresult(request):
-    return render(request, 'locations/addressresult.html')
