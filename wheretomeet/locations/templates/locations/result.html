@@ -7,11 +7,9 @@
 <div class='row justify-content-center mb-3'>
   <h4 class='col-auto'>wheretomeet의 추천 만남 장소는!</h4>
   <h4 class='col-auto'>{{ place }}입니다!</h4>
-  <p class='col-auto'>평균 소요시간 : {{result}}분</p>
-  {{position_x}}
-  {{position_y}}
-
 </div>
+<div class='row justify-content-center mb-3'>
+  <p class='col-auto'>평균 소요시간 : {{ result }}분</p>
 <div class='row justify-content-center m-3'>
   <div id="map" class='col-8' style="width:100%;height:350px;"></div>
 </div>
@@ -23,10 +21,11 @@
   <p class='col-auto'>{{ place }}의 맛집 정보는?</p>
   <a href ='https://www.mangoplate.com/search/{{place}}'class='col-auto btn d-inline btn-dark btn-sm'>여기!</a>
 </div>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 js 키"></script>
 <script>
-var x = {{ position_x }}
-var y = {{ position_y }}
+
+var y = {{ position_x }}
+var x = {{ position_y }}
 console.log(x)
 console.log(y)
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -49,7 +48,7 @@ var marker = new kakao.maps.Marker({
 // 마커가 지도 위에 표시되도록 설정합니다
 marker.setMap(map);
 
-var iwContent = '<a href="https://map.kakao.com/link/to/{{place}},{{position_x}},{{position_y}}" style="color:blue" target="_blank">경로찾기</a>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+var iwContent = '<a class="text-center text-dark" href="https://map.kakao.com/link/to/{{place}},{{position_y}},{{position_x}}" style="color:blue" target="_blank">경로찾기</a>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     iwPosition = new kakao.maps.LatLng(x, y); //인포윈도우 표시 위치입니다
 
 // 인포윈도우를 생성합니다
