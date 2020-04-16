@@ -117,9 +117,10 @@ Yeong-su
 
 ## Credit
 
-[Kakao 지도 API]:https://apis.map.kakao.com/
-[ ODsay 대중교통 OPEN API ]: https://lab.odsay.com/
-[Header image 출처 ]: https://unsplash.com/
+- [Kakao 지도 API](https://apis.map.kakao.com/)
+- [ODsay 대중교통 OPEN API](https://lab.odsay.com/)
+- [Header image 출처](https://unsplash.com/)
+- special thanks to 에릭 선생님 for kindly providing all the answers to our endless questions
 
 
 
