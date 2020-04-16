@@ -2,17 +2,15 @@ import requests
 import json
 
 
-kakao_key = '70b3da71d4666c940fd8657467651b15'
+kakao_key = '0690f13a5094b1bba85f26e298cb73b5'
 kakao_url = '/v2/local/search/address.json'
 kakao_host = 'https://dapi.kakao.com'
 kakao_headers = {'Authorization': f'KakaoAK {kakao_key}'}
 
 def searchx(location):
     myurl = kakao_host + kakao_url + f'?query={location}'
-    print(myurl)
     response = requests.get(myurl, headers=kakao_headers).text
     response = json.loads(response)
-    print(response)
     return float(response['documents'][0]['address']['x'])
 
 def searchy(location):
@@ -43,7 +41,7 @@ def time(array):
     '역삼역': (127.03646946847, 37.5006744185994),
     }
 
-    OD_key = 'my_Od_Key'
+    OD_key = 'mykey'
     my_time_min = 1000000
     my_stn = ""
     for stn in spots.keys():
@@ -63,4 +61,4 @@ def time(array):
             my_time_min = my_time
             my_stn = stn
     
-    return (my_time_min, my_stn)
+    return (my_time_min, my_stn, spots[my_stn])

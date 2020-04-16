@@ -17,22 +17,21 @@ def index(request):
 def search(request,people):
     #search 부분 어떻게 받을건지에 따라서 프론트도 백도 많이 달라질 것 같아서 여기서 한번 멈추겠습니다. 
     if request.method == 'POST':
-        text = request.POST.get('textinput_1')
-        print(text)
-        adlist = []        
+        adlist = []
+        placename_list = []        
         for i in range(1, people+1):
-            print(request.POST.get(f'textinput_{i}'))
-            adlist.append((searchx(request.POST.get(f'textinput_{i}')), searchy(request.POST.get(f'textinput_{i}'))))
-        result, position = time(adlist)
-        print(position)
-        place = json.dumps(position)
-        print(place)
+            text = request.POST.get(f'textinput_{i}')
+            placename_list.append(text)
+            adlist.append((searchx(text), searchy(text)))
+        result, place, position = time(adlist)
         context = {
-            'result': result,
+            'result': int(result)//people,
             'place' : place,
-            'place_name' : adlist,
+            'position_x':position[0],
+            'position_y': position[1],
+            'placename_list': placename_list,
         }
-        return render(request, 'pages/result.html', context)           
+        return render(request, 'locations/result.html', context)           
     
     else:
         context={
@@ -40,13 +39,5 @@ def search(request,people):
         }
         return render(request, 'locations/search.html', context)
 
-def result(request):
-    spot = '' #아마 원래 형식은 둘다 dict이겠지만 spot은 한 곳이고 locations은 복수의 것(사용자 input 값)에 차이를 두기 위해서 이렇게
-    #표현해둔거니까 나중에 편하게 바꿔주세요!
-    locations = {}
-    context = {
-        'locations': locations,
-        'spot': spot
-    }
-    return render(request, 'locations/result.html', context)
+
 

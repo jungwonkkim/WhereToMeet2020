@@ -14,7 +14,7 @@
     <br>
     {% endfor %}
     <div class='row justify-content-center'>
-    <button type="submit" class="btn btn-dark col-4">장소 추천 시작</button>
+    <button type="submit"id="submit-btn" class="btn btn-dark col-4">장소 추천 시작</button>
     </div>
   </form>
 
@@ -51,7 +51,7 @@
       </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="submit-btn btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -60,9 +60,9 @@
 
 {% block script %}
 <script>
-let inputs = documnet.querySelectorAll('.my_input')
+let inputs = document.querySelectorAll('.my_input')
 
-let submitBtn = document.querySelector('.submit-btn')
+let submitBtn = document.getElementById('submit-btn')
 let form = document.querySelector('.form-group')
 submitBtn.addEventListener('click', function(e){
     e.preventDefault()
@@ -125,12 +125,12 @@ function placesSearchCB(data, status, pagination) {
         // 페이지 번호를 표출합니다
         displayPagination(pagination);
 
-    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
+    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
         alert('검색 결과가 존재하지 않습니다.');
         return;
 
-    } else if (status === daum.maps.services.Status.ERROR) {
+    } else if (status === kakao.maps.services.Status.ERROR) {
 
         alert('검색 결과 중 오류가 발생했습니다.');
         return;
