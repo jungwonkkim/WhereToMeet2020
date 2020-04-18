@@ -4,17 +4,23 @@
 {% block content %}
 
 <div class='row justify-content-center'>
-  <button id="searchbutton" class="btn btn-lg btn-primary col-4" data-toggle='modal' data-target="#addresssearch">주소 검색</button>
+  <button id="searchbutton" class="btn btn-secondary col-4" data-toggle='modal' data-target="#addresssearch">주소 검색</button>
 </div>
 <form class="form-group" action="" method="POST">
     {% csrf_token %}
     {% for i in "x"|rjust:people %}
     <label>{{ forloop.counter }}번째 출발지</label>
-    <input type='text' value = '주소 검색을 통해 자동으로 입력됩니다.' name="textinput_{{forloop.counter}}" id = "textinput_{{forloop.counter}}"class="my_input form-control" disabled> 
+    <div class="row">
+        <input type='text' value = '주소 검색을 통해 자동으로 입력됩니다.' name="textinput_{{forloop.counter}}" id = "textinput_{{forloop.counter}}"class="my_input form-control col-11" disabled> 
+        <button type="button" class="delete_{{forloop.counter}} btn-outline-dark col-1">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    
     <br>
     {% endfor %}
     <div class='row justify-content-center'>
-    <button type="submit"id="submit-btn" class="btn btn-dark col-4">장소 추천 시작</button>
+    <button type="submit"id="submit-btn" class="btn btn-lg btn-dark col-4">장소 추천 시작</button>
     </div>
   </form>
 
@@ -28,7 +34,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">주소 검색</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" onclick="close_btn();"data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -51,7 +57,7 @@
       </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary mb-5" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary mb-5" onclick="close_btn();"data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -61,16 +67,23 @@
 {% block script %}
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 api키&libraries=services"></script>
 <script>
+
 let inputs = document.querySelectorAll('.my_input')
+
 
 let submitBtn = document.getElementById('submit-btn')
 let form = document.querySelector('.form-group')
-submitBtn.addEventListener('click', function(e){
+submitBtn.addEventListener('submit', function(e){
     e.preventDefault()
+    flag = true;
     inputs.forEach(input => {
         input.disabled = false
+        if(input.value === '주소 검색을 통해 자동으로 입력됩니다.'){
+            alert('주소 입력이 완료되지 않았습니다.')
+            return false;
+        }
     })
-    form.submit()
+    form.submit()    
 });
 var people ={{ people }};
 var button = document.getElementById("searchbutton"),
@@ -82,6 +95,12 @@ var button = document.getElementById("searchbutton"),
     alert('주소를 더 이상 추가할 수 없습니다.');
   }
 };
+
+function close_btn(){
+    alert('주소 입력이 완료되지 않았습니다.')
+    count -=1    
+};
+
 var markers = [];
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
